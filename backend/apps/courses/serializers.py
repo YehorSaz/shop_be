@@ -1,16 +1,16 @@
 from rest_framework import serializers
 
-from .models import CourseModel, SemesterModel
+from .models import CourseModel, CourseSemesterModel
 
 
-class SemesterSerializer(serializers.ModelSerializer):
+class CourseSemesterSerializer(serializers.ModelSerializer):
     class Meta:
-        model = SemesterModel
+        model = CourseSemesterModel
         fields = ('id', 'name', 'year')
 
 
 class CourseSerializer(serializers.ModelSerializer):
-    semester = SemesterSerializer()
+    semester = CourseSemesterSerializer()
 
     class Meta:
         model = CourseModel

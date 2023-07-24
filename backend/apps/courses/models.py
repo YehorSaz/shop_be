@@ -9,9 +9,9 @@ from core.models import BaseModel
 from .choices.semester_choices import SemesterChoices
 
 
-class SemesterModel(BaseModel):
+class CourseSemesterModel(BaseModel):
     class Meta:
-        db_table = 'semesters'
+        db_table = 'course_semesters'
 
     name = models.CharField(max_length=3, choices=SemesterChoices.choices)
     year = models.IntegerField(validators=(
@@ -27,4 +27,4 @@ class CourseModel(BaseModel):
     name = models.CharField(max_length=20, validators=(
         RegexValidator(RegExEnum.COURSE_NAME.pattern, RegExEnum.COURSE_NAME.msg),
     ))
-    semester = models.OneToOneField(SemesterModel, on_delete=models.CASCADE, related_name='course')
+    semester = models.OneToOneField(CourseSemesterModel, on_delete=models.CASCADE, related_name='course')
