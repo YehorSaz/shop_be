@@ -2,7 +2,6 @@ from django.contrib.auth import get_user_model
 from django.utils.decorators import method_decorator
 
 from rest_framework.generics import CreateAPIView, RetrieveAPIView
-from rest_framework.permissions import AllowAny
 
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework_simplejwt.serializers import TokenRefreshSerializer
@@ -23,7 +22,6 @@ class RegisterView(CreateAPIView):
         Register User
     """
     serializer_class = UserSerializer
-    permission_classes = (AllowAny,)
 
 
 class MeView(RetrieveAPIView):

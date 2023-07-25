@@ -14,29 +14,28 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='CourseSemesterModel',
+            name='ModuleModel',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(choices=[('Jan', 'Jan'), ('Feb', 'Feb'), ('Mar', 'Mar'), ('Apr', 'Apr'), ('May', 'May'), ('Jun', 'Jun'), ('Jul', 'Jul'), ('Aug', 'Aug'), ('Sep', 'Sep'), ('Oct', 'Oct'), ('Nov', 'Nov'), ('Dec', 'Dec')], max_length=3)),
-                ('year', models.IntegerField(validators=[django.core.validators.MinValueValidator(2023), django.core.validators.MaxValueValidator(2024)])),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
+                ('name', models.CharField(max_length=10, validators=[django.core.validators.RegexValidator('^[a-zA-Z]{2,20}$', 'Only letters min 2 max 20 ch')])),
             ],
             options={
-                'db_table': 'course_semesters',
+                'db_table': 'modules',
             },
         ),
         migrations.CreateModel(
-            name='CourseModel',
+            name='ModulePreviewVideosModel',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=20, validators=[django.core.validators.RegexValidator('^[a-zA-Z]{2,20}$', 'Only letters min 2 max 20 ch')])),
+                ('link', models.URLField(max_length=255)),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
-                ('semester', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='course', to='courses.coursesemestermodel')),
+                ('module', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='preview', to='modules.modulemodel')),
             ],
             options={
-                'db_table': 'courses',
+                'db_table': 'module_preview_videos',
             },
         ),
     ]

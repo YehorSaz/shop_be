@@ -33,6 +33,11 @@ class RegExEnum(Enum):
         r'^[a-zA-Z]{2,20}$',
         'Only letters min 2 max 20 ch'
     )
+
+    MODULE_NAME = (
+        r'^[a-zA-Z]{2,10}$',
+        'Only letters min 2 max 10 ch'
+    )
     def __init__(self, pattern: str, msg: str | list[str]):
         self.pattern = pattern
         self.msg = msg

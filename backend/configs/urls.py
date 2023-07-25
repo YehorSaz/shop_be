@@ -7,15 +7,15 @@ from drf_yasg.views import get_schema_view
 
 schema_view = get_schema_view(
     openapi.Info(
-        title='AutoParkAPI',
+        title='BigBirdLMS',
         default_version='v1',
-        description='About AutoParks',
-        contact=openapi.Contact(email='admin@gmail.com')
+        description='Learning Management System for Okten School',
+        contact=openapi.Contact(email='demchyshyn.v87@gmail.com')
     ),
     public=True,
     permission_classes=[AllowAny]
 )
 urlpatterns = [
     path('api/auth', include('apps.auth.urls')),
-    path('api/doc', schema_view.with_ui('swagger', cache_timeout=0))
+    path('api/doc', schema_view.with_ui('swagger', cache_timeout=0)),
 ]
