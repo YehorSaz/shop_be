@@ -10,5 +10,5 @@ class UserResponseSerializer(UserSerializer):
     class Meta:
         model = UserModel
         fields = (
-            'id', 'email', 'is_active', 'is_staff', 'is_superuser', 'last_login', 'created', 'updated', 'profile',
+            'id', 'email', 'is_active', 'is_staff', 'is_superuser', 'last_login', 'created_at', 'updated_at', 'profile',
         )

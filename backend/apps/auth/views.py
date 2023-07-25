@@ -16,7 +16,7 @@ from .serializers import UserResponseSerializer
 UserModel: User = get_user_model()
 
 
-@method_decorator(name='post', decorator=swagger_auto_schema(responses={201: UserResponseSerializer()}, security=[]))
+@method_decorator(name='post', decorator=swagger_auto_schema(responses={201: UserResponseSerializer()}))
 class RegisterView(CreateAPIView):
     """
         Register User

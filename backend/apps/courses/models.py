@@ -1,13 +1,17 @@
 from datetime import datetime
 
+from django.contrib.auth import get_user_model
 from django.core.validators import MaxValueValidator, MinValueValidator, RegexValidator
 from django.db import models
 
 from core.enums.regex_enum import RegExEnum
 from core.models import BaseModel
 
+from apps.users.models import UserModel as User
+
 from .choices.semester_choices import SemesterChoices
 
+UserModel: User = get_user_model()
 
 class CourseSemesterModel(BaseModel):
     class Meta:
@@ -28,3 +32,4 @@ class CourseModel(BaseModel):
         RegexValidator(RegExEnum.COURSE_NAME.pattern, RegExEnum.COURSE_NAME.msg),
     ))
     semester = models.OneToOneField(CourseSemesterModel, on_delete=models.CASCADE, related_name='course')
+    users = models.ManyToManyField(UserModel)
