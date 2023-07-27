@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.staticfiles',
     'drf_yasg',
+    'rest_framework_simplejwt.token_blacklist',
 
     # my_apps
     'core',
@@ -45,6 +46,7 @@ INSTALLED_APPS = [
     'apps.courses',
     'apps.modules',
     'apps.lessons',
+    'apps.admin',
 ]
 
 MIDDLEWARE = [

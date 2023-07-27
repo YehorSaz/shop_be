@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.utils.decorators import method_decorator
 
-from rest_framework.generics import CreateAPIView, RetrieveAPIView
+from rest_framework.generics import RetrieveAPIView
 
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework_simplejwt.serializers import TokenRefreshSerializer
@@ -9,19 +9,9 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework_simplejwt.views import TokenRefreshView as TRView
 
 from apps.users.models import UserModel as User
-from apps.users.serializers import UserSerializer
-
-from .serializers import UserResponseSerializer
+from apps.users.serializers import UserResponseSerializer
 
 UserModel: User = get_user_model()
-
-
-@method_decorator(name='post', decorator=swagger_auto_schema(responses={201: UserResponseSerializer()}))
-class RegisterView(CreateAPIView):
-    """
-        Register User
-    """
-    serializer_class = UserSerializer
 
 
 class MeView(RetrieveAPIView):
@@ -48,3 +38,5 @@ class TokenRefreshView(TRView):
         Refresh tokens
     """
     pass
+
+

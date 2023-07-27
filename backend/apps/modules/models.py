@@ -14,7 +14,7 @@ class ModuleModel(BaseModel):
     name = models.CharField(max_length=10, validators=(
         RegexValidator(*RegExEnum.COURSE_NAME.value),
     ))
-    courses = models.ManyToManyField(CourseModel)
+    courses = models.ManyToManyField(CourseModel, related_name='modules')
 
 
 class ModulePreviewVideosModel(BaseModel):

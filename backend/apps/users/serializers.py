@@ -23,15 +23,10 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserModel
         fields = (
-            'id', 'email', 'password', 'is_active', 'is_staff', 'is_superuser', 'last_login', 'created_at',
+            'id', 'email', 'is_active', 'is_staff', 'is_superuser', 'last_login', 'created_at',
             'updated_at', 'profile',
         )
         read_only_fields = ('id', 'is_active', 'is_staff', 'is_superuser', 'last_login', 'created_at', 'updated_at',)
-        extra_kwargs = {
-            'password': {
-                'write_only': True
-            }
-        }
 
     @atomic()
     def create(self, validated_data):
@@ -39,3 +34,23 @@ class UserSerializer(serializers.ModelSerializer):
         user = UserModel.objects.create_user(**validated_data)
         ProfileModel.objects.create(**profile, user=user)
         return user
+
+
+class UserResponseSerializer(UserSerializer):
+    class Meta:
+        model = UserModel
+        fields = (
+            'id', 'email', 'is_active', 'is_staff', 'is_superuser', 'last_login', 'created_at', 'updated_at',
+            'profile',
+        )
+
+
+class UserPasswordSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserModel
+        fields = ('password',)
+        extra_kwargs = {
+            'password': {
+                'write_only': True
+            }
+        }

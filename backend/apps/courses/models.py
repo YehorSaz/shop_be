@@ -32,4 +32,4 @@ class CourseModel(BaseModel):
         RegexValidator(RegExEnum.COURSE_NAME.pattern, RegExEnum.COURSE_NAME.msg),
     ))
     semester = models.OneToOneField(CourseSemesterModel, on_delete=models.CASCADE, related_name='course')
-    users = models.ManyToManyField(UserModel)
+    users = models.ManyToManyField(UserModel, related_name='courses')

@@ -17,5 +17,6 @@ schema_view = get_schema_view(
 )
 urlpatterns = [
     path('api/auth', include('apps.auth.urls')),
+    path('api/admin', include('apps.admin.urls')),
     path('api/doc', schema_view.with_ui('swagger', cache_timeout=0)),
 ]
