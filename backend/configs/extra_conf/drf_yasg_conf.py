@@ -6,5 +6,10 @@ SWAGGER_SETTINGS = {
             'in': 'header'
         }
     },
-    'USE_SESSION_AUTH': None
+    'USE_SESSION_AUTH': None,
+    'DISPLAY_OPERATION_ID': False,
+    'DEFAULT_PAGINATOR_INSPECTORS': (
+        'core.pagination.pagination_inspector.PaginationInspector',
+        'drf_yasg.inspectors.CoreAPICompatInspector'
+    )
 }

@@ -1,11 +1,11 @@
+
 from django.contrib.auth import get_user_model
 from django.db.transaction import atomic
 
 from rest_framework import serializers
 
+from apps.users.models import ProfileModel
 from apps.users.models import UserModel as User
-
-from .models import ProfileModel
 
 UserModel: User = get_user_model()
 
@@ -54,3 +54,6 @@ class UserPasswordSerializer(serializers.ModelSerializer):
                 'write_only': True
             }
         }
+
+
+

@@ -7,9 +7,8 @@ from django.db import models
 from core.enums.regex_enum import RegExEnum
 from core.models import BaseModel
 
+from apps.courses.choices.semester_choices import SemesterChoices
 from apps.users.models import UserModel as User
-
-from .choices.semester_choices import SemesterChoices
 
 UserModel: User = get_user_model()
 
@@ -29,7 +28,7 @@ class CourseModel(BaseModel):
         db_table = 'courses'
 
     name = models.CharField(max_length=20, validators=(
-        RegexValidator(RegExEnum.COURSE_NAME.pattern, RegExEnum.COURSE_NAME.msg),
+        RegexValidator(*RegExEnum.COURSE_NAME.value),
     ))
     semester = models.OneToOneField(CourseSemesterModel, on_delete=models.CASCADE, related_name='course')
     users = models.ManyToManyField(UserModel, related_name='courses')

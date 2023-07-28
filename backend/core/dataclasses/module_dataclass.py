@@ -1,9 +1,10 @@
 from dataclasses import dataclass
 
 from core.dataclasses.base_dataclass import BaseDataClass
+from core.dataclasses.course_dataclass import Course
 
 
 @dataclass
-class Semester(BaseDataClass):
+class Module(BaseDataClass):
     name: str
-    year: int
+    courses: list[Course]

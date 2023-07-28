@@ -1,8 +1,8 @@
 from dataclasses import dataclass
 from datetime import datetime
 
-from .base_dataclass import BaseDataClass
-from .profile_dataclass import Profile
+from core.dataclasses.base_dataclass import BaseDataClass
+from core.dataclasses.profile_dataclass import Profile
 
 
 @dataclass

@@ -2,7 +2,7 @@ import os
 
 from rest_framework.request import Request
 
-from .is_manager import IsManager
+from core.permissions.is_manager import IsManager
 
 
 class IsSuperUser(IsManager):

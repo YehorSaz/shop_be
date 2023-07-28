@@ -15,19 +15,44 @@ class CustomUserManager(BaseUserManager):
         user.save()
         return user
 
-    def create_superuser(self, email, password='', **extra_kwargs):
+    def create_superuser(self, email, **extra_kwargs):
         extra_kwargs.setdefault('is_staff', True)
         extra_kwargs.setdefault('is_superuser', True)
         extra_kwargs.setdefault('is_active', True)
+        extra_kwargs.setdefault('password', '')
 
         if extra_kwargs.get('is_staff') is not True:
             raise ValueError('Superuser must have is_staff=True')
         if extra_kwargs.get('is_superuser') is not True:
             raise ValueError('Superuser must have is_superuser=True')
-        return self.create_user(email, password, **extra_kwargs)
+        return self.create_user(email, **extra_kwargs)
+
+    def create_manager(self, email, **extra_kwargs):
+        extra_kwargs.setdefault('is_staff', True)
+        extra_kwargs.setdefault('is_superuser', True)
+        extra_kwargs.setdefault('is_active', False)
+        extra_kwargs.setdefault('password', '')
+
+        if extra_kwargs.get('is_staff') is not True:
+            raise ValueError('Manager must have is_staff=True')
+        if extra_kwargs.get('is_superuser') is not True:
+            raise ValueError('Manager must have is_superuser=True')
+        return self.create_user(email, **extra_kwargs)
+
+    def create_mentor(self, email, **extra_kwargs):
+        extra_kwargs.setdefault('is_staff', True)
+        extra_kwargs.setdefault('is_active', False)
+        extra_kwargs.setdefault('password', '')
+
+        if extra_kwargs.get('is_staff') is not True:
+            raise ValueError('Mentor must have is_staff=True')
+        return self.create_user(email, **extra_kwargs)
 
     def get(self, *args, **kwargs):
         return super().select_related('profile').get(*args, **kwargs)
 
     def managers(self):
         return self.filter(is_superuser=True).exclude(email__in=os.environ.get('SUPERUSERS', '').split(','))
+
+    def mentors(self):
+        return self.filter(is_staff=True, is_superuser=False)
