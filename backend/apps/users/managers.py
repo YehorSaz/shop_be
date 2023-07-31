@@ -1,4 +1,3 @@
-import os
 from uuid import uuid1
 
 from django.contrib.auth.base_user import BaseUserManager
@@ -17,6 +16,7 @@ class CustomUserManager(BaseUserManager):
 
     def create_superuser(self, email, **extra_kwargs):
         extra_kwargs.setdefault('is_staff', True)
+        extra_kwargs.setdefault('is_manager', True)
         extra_kwargs.setdefault('is_superuser', True)
         extra_kwargs.setdefault('is_active', True)
         extra_kwargs.setdefault('password', '')
@@ -29,14 +29,14 @@ class CustomUserManager(BaseUserManager):
 
     def create_manager(self, email, **extra_kwargs):
         extra_kwargs.setdefault('is_staff', True)
-        extra_kwargs.setdefault('is_superuser', True)
+        extra_kwargs.setdefault('is_manager', True)
         extra_kwargs.setdefault('is_active', False)
         extra_kwargs.setdefault('password', '')
 
         if extra_kwargs.get('is_staff') is not True:
             raise ValueError('Manager must have is_staff=True')
-        if extra_kwargs.get('is_superuser') is not True:
-            raise ValueError('Manager must have is_superuser=True')
+        if extra_kwargs.get('is_manager') is not True:
+            raise ValueError('Manager must have is_manager=True')
         return self.create_user(email, **extra_kwargs)
 
     def create_mentor(self, email, **extra_kwargs):
@@ -52,7 +52,7 @@ class CustomUserManager(BaseUserManager):
         return super().select_related('profile').get(*args, **kwargs)
 
     def managers(self):
-        return self.filter(is_superuser=True).exclude(email__in=os.environ.get('SUPERUSERS', '').split(','))
+        return self.filter(is_manager=True, is_superuser=False)
 
     def mentors(self):
-        return self.filter(is_staff=True, is_superuser=False)
+        return self.filter(is_staff=True, is_superuser=False, is_manager=False)

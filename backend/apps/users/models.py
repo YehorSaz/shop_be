@@ -18,7 +18,7 @@ class UserModel(AbstractBaseUser, PermissionsMixin, BaseModel):
     ))
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)
-    # todo add is_manager
+    is_manager = models.BooleanField(default=False)
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 

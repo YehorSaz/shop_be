@@ -7,8 +7,13 @@ from core.dataclasses.user_dataclass import User
 
 
 @dataclass
-class Course(BaseDataClass):
+class CourseName(BaseDataClass):
     name: str
+
+
+@dataclass
+class Course(BaseDataClass):
+    name: CourseName
     semester: Semester
     users: list[User]
     modules: list[Module]

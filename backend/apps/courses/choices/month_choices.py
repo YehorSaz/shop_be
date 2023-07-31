@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class SemesterChoices(models.TextChoices):
+class MonthChoices(models.TextChoices):
     Jan = 'Jan'
     Feb = 'Feb'
     Mar = 'Mar'
