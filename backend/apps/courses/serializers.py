@@ -18,8 +18,7 @@ class CourseSerializer(serializers.ModelSerializer):
         read_only_fields = ('id', 'created_at', 'updated_at', 'modules')
 
     def create(self, validated_data):
-        print(validated_data)
-        course: CourseModel = CourseModel.objects.create(**validated_data)
+        course: CourseModel = CourseModel.objects.create(**validated_data) # todo to service or managers
         last_course = CourseModel.objects.order_by('-id').filter(name_id=course.name).exclude(pk=course.pk).values('id')[
                       :1]
         if last_course:
