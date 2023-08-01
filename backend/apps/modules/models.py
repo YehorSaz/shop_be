@@ -14,14 +14,9 @@ class ModuleModel(BaseModel):
     name = models.CharField(max_length=11, unique=True, validators=(
         RegexValidator(*RegExEnum.MODULE_NAME.value),
     ))
+    preview_playlist = models.URLField(max_length=255, blank=True)
     courses = models.ManyToManyField(CourseModel, related_name='modules')
 
 
-class ModulePreviewVideosModel(BaseModel):
-    class Meta:
-        db_table = 'module_preview_videos'
-
-    link = models.URLField(max_length=255)
-    module = models.ForeignKey(ModuleModel, on_delete=models.CASCADE, related_name='previews')
 
 

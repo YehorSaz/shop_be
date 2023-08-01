@@ -10,22 +10,16 @@ class CourseNameSerializer(serializers.ModelSerializer):
 
 
 class CourseSerializer(serializers.ModelSerializer):
-    name = CourseNameSerializer() # todo
-
     class Meta:
         model = CourseModel
         fields = ('id', 'name', 'month', 'year', 'created_at', 'updated_at', 'modules')
         read_only_fields = ('id', 'created_at', 'updated_at', 'modules')
 
+    def to_representation(self, instance):
+        name = CourseNameSerializer(instance.name).data
+        representation = super().to_representation(instance)
+        representation |= {'name': name}
+        return representation
+
     def create(self, validated_data):
-        course: CourseModel = CourseModel.objects.create(**validated_data) # todo to service or managers
-        last_course = CourseModel.objects.order_by('-id').filter(name_id=course.name).exclude(pk=course.pk).values('id')[
-                      :1]
-        if last_course:
-            pk = last_course[0].get('id', None)
-            if pk:
-                modules = (CourseModel.objects.prefetch_related('modules')
-                           .filter(pk=pk)
-                           .values_list('modules', flat=True))
-                course.modules.set(modules)
-        return course
+        return CourseModel.objects.create_with_modules(validated_data)

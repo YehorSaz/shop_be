@@ -1,9 +1,11 @@
-
 from django.contrib.auth import get_user_model
 from django.db.transaction import atomic
 
 from rest_framework import serializers
 
+from core.dataclasses.user_dataclass import User as UserDataclass
+
+from apps.users.choices.role_choice import RoleChoice
 from apps.users.models import ProfileModel
 from apps.users.models import UserModel as User
 
@@ -22,11 +24,22 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = UserModel
-        fields = (
-            'id', 'email', 'is_active', 'is_staff', 'is_superuser', 'last_login', 'created_at',
-            'updated_at', 'profile',
-        )
-        read_only_fields = ('id', 'is_active', 'is_staff', 'is_superuser', 'last_login', 'created_at', 'updated_at',)
+        fields = ('id', 'email', 'is_active', 'last_login', 'created_at', 'updated_at', 'profile',)
+        read_only_fields = ('id', 'is_active', 'last_login', 'created_at', 'updated_at',)
+
+    def to_representation(self, instance: UserDataclass):
+        role = 'user'
+        match instance:
+            case User(is_superuser=True):
+                role = 'superuser'
+            case User(is_manager=True):
+                role = 'manager'
+            case User(is_staff=True):
+                role = 'mentor'
+
+        representation = super().to_representation(instance)
+        representation |= {'role': role}
+        return representation
 
     @atomic()
     def create(self, validated_data):
@@ -37,12 +50,11 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class UserResponseSerializer(UserSerializer):
+    role = serializers.ChoiceField(choices=RoleChoice)
+
     class Meta:
         model = UserModel
-        fields = (
-            'id', 'email', 'is_active', 'is_staff', 'is_superuser', 'last_login', 'created_at', 'updated_at',
-            'profile',
-        )
+        fields = ('id', 'email', 'is_active', 'role', 'last_login', 'created_at', 'updated_at', 'profile',)
 
 
 class UserPasswordSerializer(serializers.ModelSerializer):
@@ -54,6 +66,3 @@ class UserPasswordSerializer(serializers.ModelSerializer):
                 'write_only': True
             }
         }
-
-
-

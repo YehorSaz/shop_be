@@ -8,6 +8,7 @@ from core.enums.regex_enum import RegExEnum
 from core.models import BaseModel
 
 from apps.courses.choices.month_choices import MonthChoices
+from apps.courses.managers import CourseManager
 from apps.users.models import UserModel as User
 
 UserModel: User = get_user_model()
@@ -35,3 +36,5 @@ class CourseModel(BaseModel):
         MaxValueValidator(datetime.now().year + 1),
     ))
     users = models.ManyToManyField(UserModel, related_name='courses')
+
+    objects = CourseManager()

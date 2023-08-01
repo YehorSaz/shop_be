@@ -9,6 +9,7 @@ psycopg = "*"
 djangorestframework-simplejwt = "*"
 drf-yasg = "*"
 django-filter = "*"
+pytube = "*"
 
 [dev-packages]
 isort = "*"

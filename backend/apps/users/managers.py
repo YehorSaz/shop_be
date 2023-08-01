@@ -51,6 +51,9 @@ class CustomUserManager(BaseUserManager):
     def get(self, *args, **kwargs):
         return super().select_related('profile').get(*args, **kwargs)
 
+    def all(self):
+        return super().select_related('profile').all()
+
     def managers(self):
         return self.filter(is_manager=True, is_superuser=False)
 

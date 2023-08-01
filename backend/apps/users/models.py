@@ -9,6 +9,8 @@ from apps.users.managers import CustomUserManager
 
 
 class UserModel(AbstractBaseUser, PermissionsMixin, BaseModel):
+    __match_args__ = ('is_staff', 'is_manager', 'is_superuser')
+
     class Meta:
         db_table = 'auth_user'
 
