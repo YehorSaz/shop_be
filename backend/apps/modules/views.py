@@ -25,4 +25,4 @@ class ModulesListCreateView(ListCreateAPIView):
 
 
 class ModelRetrieveUpdateDestroyView(RetrieveUpdateDestroyAPIView):
-    pass  # todo
+    pass  # todo release that

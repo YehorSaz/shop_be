@@ -1,5 +1,3 @@
-from uuid import uuid1
-
 from django.contrib.auth.base_user import BaseUserManager
 
 
@@ -10,7 +8,7 @@ class CustomUserManager(BaseUserManager):
             raise ValueError("The email must be set")
         email = self.normalize_email(email)
         user = self.model(email=email, **extra_kwargs)
-        user.set_password(password if password else str(uuid1()))
+        user.set_password(password if password else self.make_random_password())  # todo check this
         user.save()
         return user
 

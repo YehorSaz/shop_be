@@ -3,12 +3,12 @@ from django.db.transaction import atomic
 
 
 class CourseManager(Manager):
-    """
-        Create course and add modules from last course
-    """
 
     @atomic()
     def create_with_modules(self, validated_data):
+        """
+            Create course and add modules from last course
+        """
         course = self.create(**validated_data)
         last_course = self.order_by('-id').filter(name_id=course.name).exclude(pk=course.pk).values('id')[:1]
         if last_course:
