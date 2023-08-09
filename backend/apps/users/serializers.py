@@ -50,7 +50,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class UserResponseSerializer(UserSerializer):
-    role = serializers.ChoiceField(choices=RoleChoice)
+    role = serializers.ChoiceField(choices=RoleChoice.choices)
 
     class Meta:
         model = UserModel

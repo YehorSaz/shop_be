@@ -19,16 +19,17 @@ from core.tokens.activate_token import ActivateToken
 
 from apps.auth.serializers import UserActivationResponseSerializer
 from apps.users.models import UserModel as User
-from apps.users.serializers import UserPasswordSerializer, UserResponseSerializer
+from apps.users.serializers import UserPasswordSerializer, UserResponseSerializer, UserSerializer
 
 UserModel: User = get_user_model()
 
 
+@method_decorator(name='get', decorator=swagger_auto_schema(responses={200: UserResponseSerializer()}))
 class MeView(RetrieveAPIView):
     """
         Return Authenticated User
     """
-    serializer_class = UserResponseSerializer
+    serializer_class = UserSerializer
 
     def get_object(self):
         return self.request.user
@@ -70,9 +71,8 @@ class UserActivateView(GenericAPIView):
             user.is_active = True
 
         user.save()
-        res_serializer = UserResponseSerializer(user)
+        res_serializer = UserSerializer(user)
         return Response(res_serializer.data, status=status.HTTP_200_OK)
-
 
 
 class UserActivationRequestView(GenericAPIView):

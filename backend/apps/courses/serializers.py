@@ -23,3 +23,10 @@ class CourseSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         return CourseModel.objects.create_with_modules(validated_data)
+
+
+class CourseUpdateModulesSerializer(CourseSerializer):
+    class Meta:
+        model = CourseModel
+        fields = ('id', 'name', 'month', 'year', 'created_at', 'updated_at', 'modules')
+        read_only_fields = ('id', 'name', 'month', 'year', 'created_at', 'updated_at')

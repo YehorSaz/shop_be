@@ -15,5 +15,7 @@ class CourseManager(Manager):
             pk = last_course[0].get('id', None)
             if pk:
                 modules = self.prefetch_related('modules').filter(pk=pk).values_list('modules', flat=True)
-                course.modules.set(modules)
+                modules = [module for module in modules if module]
+                if modules:
+                    course.modules.set(modules)
         return course

@@ -24,5 +24,5 @@ class ModulesListCreateView(ListCreateAPIView):
     permission_classes = (IsSuperUser,)
 
 
-class ModelRetrieveUpdateDestroyView(RetrieveUpdateDestroyAPIView):
+class ModuleRetrieveUpdateDestroyView(RetrieveUpdateDestroyAPIView):
     pass  # todo release that
