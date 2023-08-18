@@ -12,6 +12,16 @@ class CustomUserManager(BaseUserManager):
         user.save()
         return user
 
+    def get_or_create_students_or_get_mentor(self, email):
+        email = self.normalize_email(email)
+        user, created = self.get_or_create(email=email)
+
+        if created:
+            user.set_password(self.make_random_password())
+            user.save()
+
+        return user, created
+
     def create_superuser(self, email, **extra_kwargs):
         extra_kwargs.setdefault('is_staff', True)
         extra_kwargs.setdefault('is_manager', True)

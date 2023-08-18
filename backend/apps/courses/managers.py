@@ -19,3 +19,6 @@ class CourseManager(Manager):
                 if modules:
                     course.modules.set(modules)
         return course
+
+    def all_with_users(self):
+        return self.prefetch_related('users').all()

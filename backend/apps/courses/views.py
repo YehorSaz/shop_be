@@ -4,13 +4,20 @@ from rest_framework.response import Response
 
 from drf_yasg.utils import swagger_auto_schema
 
+from core.dataclasses.user_dataclass import User
 from core.permissions.is_manager import IsManager
 from core.permissions.is_super_user_or_manager_read_only_permission import IsSuperUserOrManagerReadOnly
 from core.permissions.is_superuser import IsSuperUser
 
 from apps.courses.models import CourseModel, CourseNameModel
-from apps.courses.serializers import CourseNameSerializer, CourseSerializer, CourseUpdateModulesSerializer
+from apps.courses.serializers import (
+    CourseAddUsersSerializer,
+    CourseNameSerializer,
+    CourseSerializer,
+    CourseUpdateModulesSerializer,
+)
 from apps.modules.serializers import ModuleSerializer
+from apps.users.serializers import UserResponseSerializer, UserSerializer
 
 
 class CourseNamesListCreateView(ListCreateAPIView):
@@ -63,3 +70,22 @@ class CourseListUpdateModulesView(GenericAPIView):
         serializer.save()
         serializer = ModuleSerializer(course.modules, many=True)
         return Response(serializer.data, status.HTTP_200_OK)
+
+
+class CourseListAddUsersView(GenericAPIView):
+    # todo pagination, comment and doc
+    queryset = CourseModel.objects.all_with_users()
+
+    def get(self, *args, **kwargs):
+        course = self.get_object()
+        serializer = UserSerializer(course.users, many=True)
+        return Response(serializer.data, status.HTTP_200_OK)
+
+    def post(self, *args, **kwargs):
+        data = self.request.data
+        course = self.get_object()
+        serializer = CourseAddUsersSerializer(data=data, context={'course': course}, many=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        serializer = CourseSerializer(course)
+        return Response(serializer.data, status.HTTP_201_CREATED)
