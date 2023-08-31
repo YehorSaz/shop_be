@@ -1,6 +1,7 @@
 from rest_framework import status
 from rest_framework.generics import GenericAPIView, ListCreateAPIView
 from rest_framework.response import Response
+from rest_framework.serializers import ListSerializer
 
 from drf_yasg.utils import swagger_auto_schema
 
@@ -73,14 +74,21 @@ class CourseListUpdateModulesView(GenericAPIView):
 
 
 class CourseListAddUsersView(GenericAPIView):
-    # todo pagination, comment and doc
+    """
+        get:
+            get course users by course id
+        post:
+            save users to course by course id
+    """
     queryset = CourseModel.objects.all_with_users()
+    serializer_class = UserSerializer
 
     def get(self, *args, **kwargs):
         course = self.get_object()
-        serializer = UserSerializer(course.users, many=True)
-        return Response(serializer.data, status.HTTP_200_OK)
+        response = self.get_paginated_response(self.paginate_queryset(UserSerializer(course.users, many=True).data))
+        return response
 
+    @swagger_auto_schema(request_body=CourseAddUsersSerializer(many=True), responses={201: CourseSerializer()})
     def post(self, *args, **kwargs):
         data = self.request.data
         course = self.get_object()
