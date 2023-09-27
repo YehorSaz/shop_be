@@ -1,0 +1,25 @@
+<form [formGroup]="form">
+  <mat-card>
+
+    <mat-card-header>
+      <mat-card-title>Login</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+
+      <mat-form-field appearance="outline">
+        <mat-label>email</mat-label>
+        <input type="text" matInput formControlName="email">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>password</mat-label>
+        <input type="text" matInput formControlName="password">
+      </mat-form-field>
+
+      <mat-card-actions>
+        <button mat-raised-button color="primary">login</button>
+      </mat-card-actions>
+    </mat-card-content>
+  </mat-card>
+</form>

@@ -1,0 +1,9 @@
+mat-card-content{
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+mat-card-actions{
+  justify-content: end;
+}
