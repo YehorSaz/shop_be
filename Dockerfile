@@ -1,10 +1,10 @@
 FROM python:3.11-alpine
 
-MAINTAINER Vitaliy Demchyshyn
+MAINTAINER Okten
 
 ENV PYTHONUNBUFFERED=1
 
-RUN apk add --no-cache gcc musl-dev libpq-dev
+RUN apk add --no-cache gcc musl-dev mariadb-dev
 RUN apk add --no-cache jpeg-dev zlib-dev libjpeg
 
 RUN mkdir /app

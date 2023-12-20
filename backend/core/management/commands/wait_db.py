@@ -2,7 +2,7 @@ import time
 
 from django.core.management import BaseCommand
 from django.db import OperationalError, connection
-from django.db.backends.postgresql.base import DatabaseWrapper
+from django.db.backends.mysql.base import DatabaseWrapper
 
 connection: DatabaseWrapper = connection
 
