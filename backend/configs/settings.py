@@ -26,8 +26,8 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG') == 'True'
 
-ALLOWED_HOSTS = [item.strip() for item in os.environ.get('ALLOWED_HOSTS', '').split(',') if item]
-
+# ALLOWED_HOSTS = [item.strip() for item in os.environ.get('ALLOWED_HOSTS', '').split(',') if item]
+CORS_ORIGIN_ALLOW_ALL = True
 AUTH_USER_MODEL = 'users.UserModel'
 
 # Application definition
@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'drf_yasg',
     'rest_framework_simplejwt.token_blacklist',
+    'corsheaders',
 
     # my_apps
     'core',
@@ -50,6 +51,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.middleware.common.CommonMiddleware',
 ]
