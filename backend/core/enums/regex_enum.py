@@ -3,7 +3,7 @@ from enum import Enum
 
 class RegExEnum(Enum):
     NAME_SURNAME = (
-        r'^(?:(?!.*[эЭыЫ]))[А-яіІїЇґҐєЄ-]{2,50}$',
+        r'^(?!.*[эЭыЫ])[А-яіІїЇґҐєЄ-]{2,50}$',
         [
             'Only Ukrainian letters or "-"',
             'min 2 characters',
@@ -18,8 +18,7 @@ class RegExEnum(Enum):
     )
 
     PASSWORD = (
-        r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=(?:.*[`~!@#$%^&*()\-_+=\\\|\'\"\;\:\/?.>,<\[\]\{\}]))[a-zA-Z\d`~!@#$%^&*('
-        r')\-_+=\\\|\'\"\;\:\/?.>,<\[\]\{\}]{8,30}$',
+        r'^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\s])\S{8,30}$',
         [
             'min 1 lowercase ch',
             'min 1 uppercase ch',
@@ -31,13 +30,14 @@ class RegExEnum(Enum):
 
     COURSE_NAME = (
         r'^[a-zA-Z]{2,20}$',
-        'Only letters min 2 max 20 ch'
+        'Only latin letters min 2 max 20 ch'
     )
 
     MODULE_NAME = (
         r'^[a-zA-Z]{2,11}$',
-        'Only letters min 2 max 11 ch'
+        'Only latin letters min 2 max 11 ch'
     )
+
     def __init__(self, pattern: str, msg: str | list[str]):
         self.pattern = pattern
         self.msg = msg
