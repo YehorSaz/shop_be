@@ -12,7 +12,7 @@ class RegExEnum(Enum):
     )
 
     PHONE = (
-        r'^\d{12}$',
+        r'(\+38)?0\d{9}$',
         'Only numbers, 12 numbers'
 
     )
