@@ -12,8 +12,8 @@ class RegExEnum(Enum):
     )
 
     PHONE = (
-        r'(\+38)?0\d{9}$',
-        'Only numbers, 12 numbers'
+        r'^(38)?0\d{9}$',
+        'only numbers, example: 380xxxxxxxxx, 0xxxxxxxxx'
 
     )
 
