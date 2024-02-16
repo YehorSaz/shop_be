@@ -1,99 +1,18 @@
-from rest_framework import status
-from rest_framework.generics import GenericAPIView, ListCreateAPIView
-from rest_framework.response import Response
-from rest_framework.serializers import ListSerializer
+from rest_framework.generics import ListCreateAPIView
 
-from drf_yasg.utils import swagger_auto_schema
+from apps.courses.models import CourseModel
+from apps.courses.serializers import CourseSerializer
 
-from core.dataclasses.user_dataclass import User
-from core.permissions.is_manager import IsManager
 from core.permissions.is_super_user_or_manager_read_only_permission import IsSuperUserOrManagerReadOnly
-from core.permissions.is_superuser import IsSuperUser
-
-from apps.courses.models import CourseModel, CourseNameModel
-from apps.courses.serializers import (
-    CourseAddUsersSerializer,
-    CourseNameSerializer,
-    CourseSerializer,
-    CourseUpdateModulesSerializer,
-)
-from apps.modules.serializers import ModuleSerializer
-from apps.users.serializers import UserResponseSerializer, UserSerializer
 
 
-class CourseNamesListCreateView(ListCreateAPIView):
+class CourseListCreateView(ListCreateAPIView):
     """
     get:
         Get list of course names
     post:
         Create new course name
     """
-    serializer_class = CourseNameSerializer
-    queryset = CourseNameModel.objects.all()
-    permission_classes = (IsSuperUserOrManagerReadOnly,)
-
-
-class CoursesListCreateView(ListCreateAPIView):
-    """
-    get:
-        Get list of courses
-    post:
-        Create course and add modules from last course
-    """
     serializer_class = CourseSerializer
     queryset = CourseModel.objects.all()
-    permission_classes = (IsManager,)
-
-
-class CourseListUpdateModulesView(GenericAPIView):
-    """
-    get:
-        List of modules by course id
-    patch:
-        Add modules by course id
-    """
-    serializer_class = CourseUpdateModulesSerializer
-    queryset = CourseModel.objects.all()
-    permission_classes = (IsSuperUser,)
-
-    @swagger_auto_schema(responses={200: ModuleSerializer(many=True)})
-    def get(self, *args, **kwargs):
-        course = self.get_object()
-        serializer = ModuleSerializer(course.modules, many=True)
-        return Response(serializer.data, status.HTTP_200_OK)
-
-    @swagger_auto_schema(responses={200: ModuleSerializer(many=True)})
-    def patch(self, *args, **kwargs):
-        course = self.get_object()
-        data = self.request.data
-        serializer = self.get_serializer(instance=course, data=data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        serializer = ModuleSerializer(course.modules, many=True)
-        return Response(serializer.data, status.HTTP_200_OK)
-
-
-class CourseListAddUsersView(GenericAPIView):
-    """
-        get:
-            get course users by course id
-        post:
-            save users to course by course id
-    """
-    queryset = CourseModel.objects.all_with_users()
-    serializer_class = UserSerializer
-
-    def get(self, *args, **kwargs):
-        course = self.get_object()
-        response = self.get_paginated_response(self.paginate_queryset(UserSerializer(course.users, many=True).data))
-        return response
-
-    @swagger_auto_schema(request_body=CourseAddUsersSerializer(many=True), responses={201: CourseSerializer()})
-    def post(self, *args, **kwargs):
-        data = self.request.data
-        course = self.get_object()
-        serializer = CourseAddUsersSerializer(data=data, context={'course': course}, many=True)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        serializer = CourseSerializer(course)
-        return Response(serializer.data, status.HTTP_201_CREATED)
+    permission_classes = (IsSuperUserOrManagerReadOnly,)

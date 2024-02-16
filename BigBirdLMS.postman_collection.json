@@ -1,9 +1,10 @@
 {
 	"info": {
-		"_postman_id": "f2fcc77e-5f5a-484b-a0a7-9d5772d3419b",
+		"_postman_id": "85cf68ab-97cb-4008-a5e8-341e24ed59e5",
 		"name": "BigBirdLMS",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "9672922"
+		"_exporter_id": "27395364",
+		"_collection_link": "https://planetary-eclipse-906906.postman.co/workspace/Team-Workspace~e17cd947-0aab-4b2e-8838-3072823dd4c2/collection/27395364-85cf68ab-97cb-4008-a5e8-341e24ed59e5?action=share&source=collection_link&creator=27395364"
 	},
 	"item": [
 		{
@@ -346,53 +347,6 @@
 			"name": "courses",
 			"item": [
 				{
-					"name": "createCourse",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{access}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "name",
-									"value": "4",
-									"type": "text"
-								},
-								{
-									"key": "month",
-									"value": "Dec",
-									"type": "text"
-								},
-								{
-									"key": "year",
-									"value": "2023",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "{{host}}/courses",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"courses"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "getAllCourses",
 					"request": {
 						"auth": {
@@ -420,35 +374,7 @@
 					"response": []
 				},
 				{
-					"name": "getAllCourseNames",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{access}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{host}}/courses/names",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"courses",
-								"names"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "createCourseName",
+					"name": "createCourse",
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -473,136 +399,12 @@
 							]
 						},
 						"url": {
-							"raw": "{{host}}/courses/names",
+							"raw": "{{host}}/courses",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
-								"courses",
-								"names"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "setModules",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{access}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "PATCH",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"modules\":[1,4,3]\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/courses/:id/modules",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"courses",
-								":id",
-								"modules"
-							],
-							"variable": [
-								{
-									"key": "id",
-									"value": "23"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "getModules",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{access}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{host}}/courses/:id/modules",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"courses",
-								":id",
-								"modules"
-							],
-							"variable": [
-								{
-									"key": "id",
-									"value": "23"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "addUsers",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{access}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "[\n    {\"email\":\"asd4@gmail.com\", \"phone\":\"380979345609\", \"name\":\"Алекс\", \"surname\":\"Ахматов\"},\n    {\"email\":\"asd@gmail.com\", \"phone\":\"380979345608\", \"name\":\"Алекс\", \"surname\":\"Ахматов\"},\n    {\"email\":\"asd5@gmail.com\", \"phone\":\"380979345604\", \"name\":\"Алекс\", \"surname\":\"Ахматов\"}\n]",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/courses/:id/users",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"courses",
-								":id",
-								"users"
-							],
-							"variable": [
-								{
-									"key": "id",
-									"value": "20"
-								}
+								"courses"
 							]
 						}
 					},
@@ -671,6 +473,188 @@
 							],
 							"path": [
 								"modules"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "groups",
+			"item": [
+				{
+					"name": "getAllGroups",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/groups",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"groups"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createGroup",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/groups",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"groups"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "setModules",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"modules\":[1,4,3]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/groups/:id/modules",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"groups",
+								":id",
+								"modules"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "23"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getModules",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/groups/:id/modules",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"groups",
+								":id",
+								"modules"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "23"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addUsers",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\"email\":\"asd4@gmail.com\", \"phone\":\"380979345609\", \"name\":\"Алекс\", \"surname\":\"Ахматов\"},\n    {\"email\":\"asd@gmail.com\", \"phone\":\"380979345608\", \"name\":\"Алекс\", \"surname\":\"Ахматов\"},\n    {\"email\":\"asd5@gmail.com\", \"phone\":\"380979345604\", \"name\":\"Алекс\", \"surname\":\"Ахматов\"}\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/groups/:id/users",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"groups",
+								":id",
+								"users"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "20"
+								}
 							]
 						}
 					},

@@ -1,10 +1,11 @@
 from django.core.validators import RegexValidator
 from django.db import models
 
+from apps.groups.models import GroupModel
 from core.enums.regex_enum import RegExEnum
 from core.models import BaseModel
 
-from apps.courses.models import CourseModel
+# from apps.courses.models import CourseModel
 
 
 class ModuleModel(BaseModel):
@@ -15,8 +16,4 @@ class ModuleModel(BaseModel):
         RegexValidator(*RegExEnum.MODULE_NAME.value),
     ))
     preview_playlist = models.URLField(max_length=255, blank=True)
-    courses = models.ManyToManyField(CourseModel, related_name='modules')
-
-
-
-
+    groups = models.ManyToManyField(GroupModel, related_name='modules')

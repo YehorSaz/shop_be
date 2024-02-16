@@ -19,6 +19,7 @@ urlpatterns = [
     path('api/auth', include('apps.auth.urls')),
     path('api/admin', include('apps.admin.urls')),
     path('api/courses', include('apps.courses.urls')),
+    path('api/groups', include('apps.groups.urls')),
     path('api/modules', include('apps.modules.urls')),
     path('api/doc', schema_view.with_ui('swagger', cache_timeout=0)),
 ]

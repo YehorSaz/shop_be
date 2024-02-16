@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'apps.auth',
     'apps.users',
     'apps.courses',
+    'apps.groups',
     'apps.modules',
     'apps.lessons',
     'apps.admin',
